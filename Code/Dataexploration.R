@@ -7,7 +7,7 @@ mytheme=theme(
 theme_set(mytheme)
 Six.Countries=read.csv("./Data/Processed/SixCountries.csv",stringsAsFactors = TRUE)
 
-dim(Five.Countries)
+dim(Six.Countries)
 summary(Six.Countries)
 #Compare average annual environmental impact level by countries
 Annual.average.line=Six.Countries %>%
