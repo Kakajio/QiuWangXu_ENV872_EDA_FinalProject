@@ -1,0 +1,188 @@
+---
+output: 
+  pdf_document: QiuWangXu_Finalproject
+    keep_tex: yes
+    fig_caption: yes
+    number_sections: yes
+geometry: margin=2.54cm
+title: "A comparative study of the corporate environmental impacts of the five representative countries of five continents"
+subtitle: "https://github.com/yw448/QiuWangXu_ENV872_EDA_FinalProject.git"
+author: "Ina, Qiu, Lehe, Xu, Tina, Wang"
+fontsize: 12pt
+mainfont: Times New Roman
+
+---
+
+\newpage
+\tableofcontents 
+\newpage
+\listoftables 
+\newpage
+\listoffigures 
+\newpage
+
+```{r setup, include=FALSE}
+# Set your working directory
+getwd()
+# Load your packages
+library(tidyverse)
+library(readxl)
+library(agricolae)
+# Set your ggplot theme
+mytheme=theme(
+  panel.background = element_rect(fill = "white", 
+                                  colour = "grey50"))
+theme_set(mytheme)
+# Load your datasets
+raw=read_xlsx("../Data/Raw/Raw_Data.xlsx")
+```
+
+
+# Rationale and Research Questions
+As ESG performance became more and more important for investors to measure a corporation's competitiveness, evaluating environmental impacts of companies becomes an essential topic. Therefore, Harvard Business School developed a methodology to monetize corporations' environmental impacts. With the monetized impacts, we can measure the overall environmental impacts of the corporations in a country. 
+
+Due to the different stages countries are in their industrial transition path, different countries' corporations have different environmental intensity. Therefore, by comparing the environmental intensity of the representative countries in five continents, we can see which country's corporations took the leading position in their way of industrial transition. Since each country is the representative of its continent, we can have an overview of the industrial transition status of the world. The environmental intensity disparities of countries is also a reminder for the laggards to perform better in the future. 
+
+Key Questions: Is there any countries better off than others? Which countries are better-off than others?
+
+\newpage
+
+# Dataset Information
+**1. Dataset Information**
+
+The dataset we choose is from Harvard Business School’s study of corporate environmental impact. They develop a methodology to estimate monetized environmental impact by “applying characterization pathways and monetization factors to organization level environmental outputs, including carbon emissions, water use, and other emission types” . Their monetization factors are from “the Environmental Priority Strategies (EPS) Database, Available WAter REmaining (AWARE) Model, and Waterfund, along with organization level data of environmental outputs, such as carbon emissions, nitrous oxide, sulfur oxide, VOC, PM 2.5, and water withdrawal and discharge, sourced from Bloomberg and Thomson Reuters” .  
+
+The monetized dataset includes Year, Company Name, Country, Industry, Environmental Intensity (Sales), Environmental Intensity (Op Inc), Total Environmental Cost, Capacity for each means of production, and the monetized impact on each selected SDG goal. A total of 14516 rows are in the dataset. The factor-environmental intensity (Sales) is the scaled calculations for total organizational environmental impact by sales as a proxy for organization size. The monetized damage to the environment is minus, whereas the monetized benefits to the environment is plus.  
+
+
+\newpage
+
+# Exploratory Analysis 
+
+**2. Data Wrangling** 
+Our key research question is to compare the corporate environmental impacts of the five representative countries of five continents. The five representative countries are chosen for the countries with the most environmental impacts data in their continents. Finally, the US, British, Japan, Australia, and South Africa, these five countries was selected. 
+
+The main effect variable we want to discuss is “Environmental Intensity (Sales)”, so we deleted all the irrelevant variables, and only left “Year”, “Company”, “Country”, and “Environmental Intensity (Sales)”-these four columns.
+
+To make the graph easier to read, we multiplied “Environmental Intensity (Sales)” by “-1”, so that the larger the number is, the larger negative impacts the environment are suffered. 
+```{r}
+#select 5 contries that has most data in each continent
+Five.Countries=raw %>%
+  select(c(1:3,5)) %>%
+  rename(Index=`Environmental Intensity (Sales)`)%>%
+  rename(Company=`Company Name`) %>%
+  mutate(Country=as.factor(Country)) %>%
+  mutate(Company=as.factor(Company)) %>%
+  mutate(Index=Index*(-1))%>%
+  mutate(Year=as.factor(Year)) %>%
+  filter(Country=="Japan"|Country=="United Kingdom"|
+           Country=="United States"|Country=="South Africa"|
+           Country=="Australia")
+```
+
+**3. Data Exploration** 
+```{r}
+#Data Structure Summary
+summary(Five.Countries)
+```
+
+
+```{r}
+#Compare average annual environmental impact level by countries
+Annual.average.line=Five.Countries %>%
+  group_by(Country,Year)%>%
+  summarize(m=mean(Index))%>%
+  ggplot(aes(Year,
+             m,
+             color=Country,group=Country))+
+  geom_point()+
+  geom_smooth(method="lm",se=FALSE)+
+  labs(x = "Year", y = "Impact Intensity")  +
+  ggtitle("Annual Average Company Environmental Impact Intensity")
+print(Annual.average.line)  
+
+#Compare companies' annual environmental impact level distribution by countries
+Annual.average.box=Five.Countries %>%
+  group_by(Country,Year)%>%
+  ggplot(aes(x =Index,y="",
+             color=Country))+
+  geom_boxplot()+
+  facet_wrap(~Year)+
+  labs(x = "Impact Intensity", y = "Country")  +
+  ggtitle("Annual Company Environmental Impact Intensity Distribution")
+print(Annual.average.box)
+write.csv(Five.Countries, row.names = FALSE,
+          file="../Data/Processed/FiveCountries.csv")
+```
+
+\newpage
+
+# Analysis
+
+```{r}
+FiveCountries=read.csv("../Data/Processed/FiveCountries.csv",stringsAsFactors = TRUE)
+# Test for normality
+Year2019=filter(FiveCountries,Year==2019)
+
+shapiro.test(Year2019$Index
+             [Year2019$Country=="Australia"])
+shapiro.test(Year2019$Index
+             [Year2019$Country=="Japan"])
+shapiro.test(Year2019$Index
+             [Year2019$Country=="South Africa"])
+shapiro.test(Year2019$Index
+             [Year2019$Country=="United Kingdom"])
+shapiro.test(Year2019$Index
+             [Year2019$Country=="United States"])
+##results: reject null in all
+```
+
+
+```{r}
+qqnorm(Year2019$Index);qqline(Year2019$Index)
+
+bartlett.test(Year2019$Index ~ Year2019$Country)
+#results: reject null i.e. variances are not equal
+```
+
+
+```{r}
+Year2019.anova=aov(data = Year2019, Index~Country)
+summary(Year2019.anova)
+#results: reject null hypothesis 
+#i.e. difference between a pair of group means is statiscally significant
+
+group.2019=HSD.test(Year2019.anova, "Country", group = TRUE)
+group.2019
+group.2019.plot <- ggplot(Year2019, 
+                          aes(x = reorder(Country,-Index), y = Index)) +
+  geom_boxplot() +
+  stat_summary(geom = "text", fun = max, vjust = -1, size = 3.5,
+               label = c("a","a","a","b", "b")) +
+  labs(x = "Country", y = "Impact Intensity")  +
+  ggtitle("2019 Average Company Environmental Impact Intensity")
+print(group.2019.plot)
+```
+
+
+## Question 1: <Is there any countries better off than others? >
+
+Answer:
+
+
+
+## Question 2: <Which countries are better-off than others?>
+
+
+Answer:
+
+\newpage
+
+# Summary and Conclusions
+
+
+
+\newpage
+
+# References
+<Freiberg, et. al. 2020, Corporate Environmental Impact: Measurement, Data, and Information, Harvard Business School, Impact-Weighted Accounts Project Research Report. Retrieved from: https://www.hbs.edu/impact-weighted-accounts/Documents/corporate-environmental-impact.pdf> 
