@@ -5,7 +5,7 @@ output:
     fig_caption: yes
     number_sections: yes
 geometry: margin=2.54cm
-title: "A comparative study of the corporate environmental impacts of the five representative countries of five continents"
+title: "A comparative study of the corporate environmental impacts of the six representative countries of six continents"
 subtitle: "https://github.com/yw448/QiuWangXu_ENV872_EDA_FinalProject.git"
 author: "Ina, Qiu, Lehe, Xu, Yunting, Wang"
 fontsize: 12pt
@@ -41,9 +41,9 @@ raw=read_xlsx("../Data/Raw/Raw_Data.xlsx")
 # Rationale and Research Questions
 As ESG performance became more and more important for investors to measure a corporation's competitiveness, evaluating environmental impacts of companies becomes an essential topic. Therefore, Harvard Business School developed a methodology to monetize corporations' environmental impacts. With the monetized impacts, we can measure the overall environmental impacts of the corporations in a country. 
 
-Due to the different stages countries are in their industrial transition path, different countries' corporations have different environmental intensity. Therefore, by comparing the environmental intensity of the representative countries in five continents, we can see which country's corporations took the leading position in their way of industrial transition. Since each country is the representative of its continent, we can have an overview of the industrial transition status of the world. The environmental intensity disparities of countries is also a reminder for the laggards to perform better in the future. 
+Due to the different stages countries are in their industrial transition path, different countries' corporations have different environmental intensity. Therefore, by comparing the environmental intensity of the representative countries in six continents, we can see which country's corporations took the leading position in their way of industrial transition. Since each country is the representative of its continent, we can have an overview of the industrial transition status of the world. The environmental intensity disparities of countries is also a reminder for the laggards to perform better in the future. 
 
-Key Questions: Is there any countries better off than others? Which countries are better-off than others?
+Key Questions: Is there any countries better off than others 2019? Which countries are better-off than others in 2019?
 
 \newpage
 
@@ -52,7 +52,7 @@ Key Questions: Is there any countries better off than others? Which countries ar
 
 The dataset we choose is from Harvard Business School’s study of corporate environmental impact. They develop a methodology to estimate monetized environmental impact by “applying characterization pathways and monetization factors to organization level environmental outputs, including carbon emissions, water use, and other emission types” . Their monetization factors are from “the Environmental Priority Strategies (EPS) Database, Available WAter REmaining (AWARE) Model, and Waterfund, along with organization level data of environmental outputs, such as carbon emissions, nitrous oxide, sulfur oxide, VOC, PM 2.5, and water withdrawal and discharge, sourced from Bloomberg and Thomson Reuters” .  
 
-The monetized dataset includes Year, Company Name, Country, Industry, Environmental Intensity (Sales), Environmental Intensity (Op Inc), Total Environmental Cost, Capacity for each means of production, and the monetized impact on each selected SDG goal. A total of 14516 rows are in the dataset. The factor-environmental intensity (Sales) is the scaled calculations for total organizational environmental impact by sales as a proxy for organization size. The monetized damage to the environment is minus, whereas the monetized benefits to the environment is plus.  
+The monetized dataset includes Year, Company Name, Country, Industry, Environmental Intensity (Sales), Environmental Intensity (Op Inc), Total Environmental Cost, Capacity for each means of production, and the monetized impact on each selected SDG goal. A total of 14516 rows are in the dataset. The factor-environmental intensity (Sales) is the scaled calculations for total organizational environmental impact by sales as a proxy for organization size. The monetized damage to the environment is minus, whereas the monetized benefits to the environment is plus. The most recent year of data is 2019. 
 
 
 \newpage
@@ -60,7 +60,7 @@ The monetized dataset includes Year, Company Name, Country, Industry, Environmen
 # Exploratory Analysis 
 
 **2. Data Wrangling** 
-Our key research question is to compare the corporate environmental impacts of the five representative countries of five continents. The five representative countries are chosen for the countries with the most environmental impacts data in their continents. Finally, the US, UK, Japan, Australia, and South Africa, these five countries was selected. 
+Our key research question is to compare the corporate environmental impacts of the six representative countries of six continents in 2019, because the data of 2019 is the most recent data we have. The six representative countries are chosen for the countries with the most environmental impacts data in their continents. Finally, the US, UK, Japan, Australia, Mexico, and South Africa, these six countries was selected. 
 
 The main effect variable we want to discuss is “Environmental Intensity (Sales)”, so we deleted all the irrelevant variables, and only left “Year”, “Company”, “Country”, and “Environmental Intensity (Sales)”-these four columns.
 
