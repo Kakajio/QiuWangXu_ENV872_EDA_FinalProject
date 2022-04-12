@@ -7,7 +7,7 @@ output:
 geometry: margin=2.54cm
 title: "A comparative study of the corporate environmental impacts of the five representative countries of five continents"
 subtitle: "https://github.com/yw448/QiuWangXu_ENV872_EDA_FinalProject.git"
-author: "Ina, Qiu, Lehe, Xu, Tina, Wang"
+author: "Ina, Qiu, Lehe, Xu, Yunting, Wang"
 fontsize: 12pt
 mainfont: Times New Roman
 
@@ -60,7 +60,7 @@ The monetized dataset includes Year, Company Name, Country, Industry, Environmen
 # Exploratory Analysis 
 
 **2. Data Wrangling** 
-Our key research question is to compare the corporate environmental impacts of the five representative countries of five continents. The five representative countries are chosen for the countries with the most environmental impacts data in their continents. Finally, the US, British, Japan, Australia, and South Africa, these five countries was selected. 
+Our key research question is to compare the corporate environmental impacts of the five representative countries of five continents. The five representative countries are chosen for the countries with the most environmental impacts data in their continents. Finally, the US, UK, Japan, Australia, and South Africa, these five countries was selected. 
 
 The main effect variable we want to discuss is “Environmental Intensity (Sales)”, so we deleted all the irrelevant variables, and only left “Year”, “Company”, “Country”, and “Environmental Intensity (Sales)”-these four columns.
 
@@ -134,7 +134,7 @@ shapiro.test(Year2019$Index
              [Year2019$Country=="United Kingdom"])
 shapiro.test(Year2019$Index
              [Year2019$Country=="United States"])
-##results: reject null in all
+##results: reject null hypothesis, not normality 
 ```
 
 
@@ -167,7 +167,7 @@ print(group.2019.plot)
 
 ## Question 1: <Is there any countries better off than others? >
 
-Answer:
+Answer: 
 
 
 
@@ -179,6 +179,29 @@ Answer:
 \newpage
 
 # Summary and Conclusions
+```{r}
+
+Industry <- 
+ raw %>%
+  select(c(1:5)) %>%
+    filter(Country=="Japan"|Country=="United Kingdom"|
+           Country=="United States"|Country=="South Africa"|
+           Country=="Australia")%>%
+    rename(Index=`Environmental Intensity (Sales)`)%>%
+  rename(Company=`Company Name`) %>%
+  rename(industry =`Industry (Exiobase)`)%>%
+  mutate(Country=as.factor(Country)) %>%
+  mutate(Company=as.factor(Company)) %>%
+  mutate(Index=Index*(-1))%>%
+  mutate(Year=as.factor(Year))
+
+
+Industry.sum <- 
+   Industry %>%
+  group_by(industry,Country)%>%
+summarise(meanindex = mean(Index))
+
+```
 
 
 
