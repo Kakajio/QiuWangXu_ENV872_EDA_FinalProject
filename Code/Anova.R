@@ -4,9 +4,9 @@ mytheme=theme(
   panel.background = element_rect(fill = "white", 
                                   colour = "grey50"))
 theme_set(mytheme)
-FiveCountries=read.csv("./Data/Processed/FiveCountries.csv",stringsAsFactors = TRUE)
+SixCountries=read.csv("./Data/Processed/SixCountries.csv",stringsAsFactors = TRUE)
 # Test for normality
-Year2019=filter(FiveCountries,Year==2019)
+Year2019=filter(SixCountries,Year==2019)
 
 shapiro.test(Year2019$Index
              [Year2019$Country=="Australia"])
@@ -18,6 +18,8 @@ shapiro.test(Year2019$Index
              [Year2019$Country=="United Kingdom"])
 shapiro.test(Year2019$Index
              [Year2019$Country=="United States"])
+shapiro.test(Year2019$Index
+             [Year2019$Country=="Mexico"])
 ##results: reject null in all 
 qqnorm(Year2019$Index);qqline(Year2019$Index)
 
@@ -34,7 +36,7 @@ group.2019.plot <- ggplot(Year2019,
                           aes(x = reorder(Country,-Index), y = Index)) +
   geom_boxplot() +
   stat_summary(geom = "text", fun = max, vjust = -1, size = 3.5,
-               label = c("a","a","a","b", "b")) +
+               label = c("a","a","a","ab","b", "b")) +
   labs(x = "Country", y = "Impact Intensity")  +
   ggtitle("2019 Average Company Environmental Impact Intensity")
 print(group.2019.plot)

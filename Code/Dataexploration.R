@@ -5,12 +5,12 @@ mytheme=theme(
   panel.background = element_rect(fill = "white", 
                                   colour = "grey50"))
 theme_set(mytheme)
-raw=read.csv("./Data/Processed/FiveCountries.csv",stringsAsFactors = TRUE)
+Six.Countries=read.csv("./Data/Processed/SixCountries.csv",stringsAsFactors = TRUE)
 
 dim(Five.Countries)
-summary(Five.Countries)
+summary(Six.Countries)
 #Compare average annual environmental impact level by countries
-Annual.average.line=Five.Countries %>%
+Annual.average.line=Six.Countries %>%
   group_by(Country,Year)%>%
   summarize(m=mean(Index))%>%
   ggplot(aes(Year,
@@ -22,7 +22,7 @@ Annual.average.line=Five.Countries %>%
   ggtitle("Annual Average Company Environmental Impact Intensity")
 print(Annual.average.line)  
 #Compare companies' annual environmental impact level distribution by countries
-Annual.average.box=Five.Countries %>%
+Annual.average.box=Six.Countries %>%
   group_by(Country,Year)%>%
   ggplot(aes(x =Index,y="",
              color=Country))+
@@ -31,5 +31,3 @@ Annual.average.box=Five.Countries %>%
   labs(x = "Impact Intensity", y = "Country")  +
   ggtitle("Annual Company Environmental Impact Intensity Distribution")
 print(Annual.average.box)
-write.csv(Five.Countries, row.names = FALSE,
-          file="./Data/Processed/FiveCountries.csv")
