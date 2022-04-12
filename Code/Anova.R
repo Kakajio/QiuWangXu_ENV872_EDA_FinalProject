@@ -1,11 +1,8 @@
 library(tidyverse)
 library(agricolae)
 mytheme=theme(
-  panel.background = element_rect(fill = "white", colour = "grey50"),
-  legend.position = c(.98, .98),
-  legend.justification = c("right", "top"),
-  legend.box.just = "right",
-  legend.margin = margin(6, 6, 6, 6))
+  panel.background = element_rect(fill = "white", 
+                                  colour = "grey50"))
 theme_set(mytheme)
 FiveCountries=read.csv("./Data/Processed/FiveCountries.csv",stringsAsFactors = TRUE)
 # Test for normality
