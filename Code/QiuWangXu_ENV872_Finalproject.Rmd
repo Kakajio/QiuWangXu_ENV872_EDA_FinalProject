@@ -1,16 +1,17 @@
 ---
-output: 
-  pdf_document: QiuWangXu_Finalproject
+title: A comparative study of the corporate environmental impacts of the six representative
+  countries of six continents
+author: "Ina, Qiu, Lehe, Xu, Yunting, Wang"
+output:
+  pdf_document:
     keep_tex: yes
     fig_caption: yes
     number_sections: yes
+  word_document: default
+subtitle: https://github.com/yw448/QiuWangXu_ENV872_EDA_FinalProject.git
 geometry: margin=2.54cm
-title: "A comparative study of the corporate environmental impacts of the six representative countries of six continents"
-subtitle: "https://github.com/yw448/QiuWangXu_ENV872_EDA_FinalProject.git"
-author: "Ina, Qiu, Lehe, Xu, Yunting, Wang"
 fontsize: 12pt
 mainfont: Times New Roman
-
 ---
 
 \newpage
@@ -22,6 +23,7 @@ mainfont: Times New Roman
 \newpage
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 # Set your working directory
 getwd()
 # Load your packages
@@ -67,9 +69,8 @@ The main effect variable we want to discuss is “Environmental Intensity (Sales
 
 To make the graph easier to read, we multiplied “Environmental Intensity (Sales)” by “-1”, so that the larger the number is, the larger negative impacts the environment are suffered. 
 ```{r}
-#select ˊ contries that has most data in each continent
 summary(raw$Country)
-#select 6 contries that has most data in each continent
+#select 6 countries that has most data in each continent
 Six.Countries=raw %>%
   select(c(1:3,5)) %>%
   rename(Index=`Environmental Intensity (Sales)`)%>%
@@ -82,7 +83,7 @@ Six.Countries=raw %>%
            Country=="United States"|Country=="South Africa"|
            Country=="Australia"|Country=="Mexico")
 write.csv(Six.Countries, row.names = FALSE,
-          file="./Data/Processed/SixCountries.csv")  
+          file="../Data/Processed/SixCountries.csv")  
 ```
 
 **3. Data Exploration** 
@@ -162,10 +163,12 @@ summary(Year2019.anova)
 group.2019=HSD.test(Year2019.anova, "Country", group = TRUE)
 group.2019
 group.2019.plot <- ggplot(Year2019, 
-                          aes(x = reorder(Country,-Index), y = Index)) +
+                          aes(x = reorder(Country,-Index),
+                              y = Index)) +
   geom_boxplot() +
-  stat_summary(geom = "text", fun = max, vjust = -1, size = 3.5,
-               label = c("a","a","a","b", "b")) +
+  stat_summary(geom = "text", fun = max, vjust = -1, 
+               size = 3.5,
+               label = c("a","a","a","ab","b", "b")) +
   labs(x = "Country", y = "Impact Intensity")  +
   ggtitle("2019 Average Company Environmental Impact Intensity")
 print(group.2019.plot)
