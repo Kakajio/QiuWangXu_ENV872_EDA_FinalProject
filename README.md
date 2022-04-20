@@ -71,7 +71,7 @@ Data folder contains processed data and raw data in .csv and .xlsx format. Code 
 * Column 3 "Country" is the country in which the companies' headquarters are located.
 * Column 4 "Index" is the monetized environmental impact of the firm's operations during the specific year indicated in column 1 divided by revenue in that year>
 
-Scripts and code
+# Scripts and code
 
 Anova.R contains code for running anova analysis
 Dataexploration.R contains the process and result for processed data exploration
