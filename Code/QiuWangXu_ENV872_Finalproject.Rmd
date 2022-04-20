@@ -67,7 +67,7 @@ knitr::kable(summary(raw[1:5]),caption = "Raw Data Structure")
 # Exploratory Analysis 
 
 **2. Data Wrangling** 
-Our key research question is to compare the corporate environmental impacts of the six representative countries of six continents in 2019 since the data of 2019 is the most recent data we have. The six representative countries are chosen for the countries with the most environmental impacts data in their continents. Finally, the US, UK, Japan, Australia, Mexico, and South Africa, these six countries were selected. 
+Our key research goal is to compare the corporate environmental impacts of the six representative countries of six continents in 2019 since the data of 2019 is the most recent data we have. The six representative countries are chosen for the countries with the most environmental impacts data in their continents. Finally, the US, UK, Japan, Australia, Mexico, and South Africa, these six countries were selected. 
 
 The main effect variable we want to discuss is “Environmental Intensity (Sales)”, so we deleted all the irrelevant variables, and only left “Year”, “Company”, “Country”, and “Environmental Intensity (Sales)”-these four columns.
 
@@ -181,13 +181,13 @@ print(group.2019.plot)
 ```
 
 
-## Question 1: <Is there any countries better off than others? >
+## Question 1: <Is there any countries better off than others in 2019? >
 
 Answer: Yes. The Anova test returns two distinct groups.
 
-## Question 2: <Which countries are better-off than others?>
+## Question 2: <Which countries are better-off than others in 2019?>
 
-Answer: United Kingdom and Japan.
+Answer: United Kingdom and Japan are better-off than others.
 
 \newpage
 
