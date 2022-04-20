@@ -4,14 +4,18 @@
 <General notes: add as much information as is relevant for your repository. Some overarching guidelines are provided, but feel free to expand on these guidelines.> <More resources found here: https://www.dataone.org/all-best-practices>
 
 Summary
-<Group repository for final project of Environmental Data Analytics (ENV 872L) course at Duke University, Spring 2022.
+<
+Group repository for final project of Environmental Data Analytics (ENV 872L) course at Duke University, Spring 2022.
 This repository contains the dataset of the group's interest,
-processed code, R markdown document of final project, and the outputs such as tables and figures>
+processed code, R markdown document of final project, and the outputs such as tables and figures
+>
 
 Investigators
-<Ina Qiu: yibei.qiu@duke.edu
-Yunting Wang: yw448@duke.edu
-Lehe Xu: lehe.xu@duke.edu>
+<
+* Ina Qiu: yibei.qiu@duke.edu
+* Yunting Wang: yw448@duke.edu
+* Lehe Xu: lehe.xu@duke.edu
+>
 
 Keywords
 Database Information
@@ -22,55 +26,52 @@ Folder structure, file formats, and naming conventions
 
 Metadata
 <For each data file in the repository, describe the data contained in each column. Include the column name, a description of the information, the class of data, and any units associated with the data. Create a list or table for each data file.
-Raw.Data.xlsx-
-Column 1 "Year" is the year in which the environmental impact was incurred by the firm's operations.
-Column 2 "Company Name" is the name of the issuer.
-Column 3 "Country" is the country in which the companies' headquarters are located.
-Column 4 "Industry" refers to the Exiobase industry category to which the firm belongs
-Column 5 "Environmental Intensity (Sales)" is the monetized environmental impact of the firm's operations during the specific year indicated in column 1 divided by revenue in that year
-Column 6 "Environmental Intensity (Op Inc)" is the monetized environmental impact of the firm's operations during the specific year indicated in column 1 divided by operating income in that year
-Column 7 "Total Environmental Cost" is the total monetized environmental impact of the firm's operations during the specific year indicated in Column 1.
-Columns 8-15 are defined as eight different "safeguard subjects." Each safeguard subject is made up of multiple impact categories and indicators, called state indicators, that measure the current state of each safeguard subject 
-   Columns 8  Working Capacity captures human health effects from               climate change, air pollution, and toxicity. 
-   Columns 9  Fish Production Capacity includes acidification,                 eutrophication, climate change, and toxicity. 
-   Columns 10 Crop Production Capacity captures soil degradation,               air pollution, climate change, and land use. 
-   Columns 11 Meat Production Capacity includes soil degradation,               climate change, land use, and toxicity. 
-   Columns 12 Biodiversity captures land use and toxicity. 
-   Columns 13 Abiotic Resources includes environmental impacts                 from mining. 
-   Columns 14 Water production capacity captures climate change,               land use, and water pollution. 
-   Columns 15 Wood Production Capacity includes climate change,                air pollution, and land use. 
+**Raw.Data.xlsx**
+* Column 1 "Year" is the year in which the environmental impact was incurred by the firm's operations.
+* Column 2 "Company Name" is the name of the issuer.
+* Column 3 "Country" is the country in which the companies' headquarters are located.
+* Column 4 "Industry" refers to the Exiobase industry category to which the firm belongs
+* Column 5 "Environmental Intensity (Sales)" is the monetized environmental impact of the firm's operations during the specific year indicated in column 1 divided by revenue in that year
+* Column 6 "Environmental Intensity (Op Inc)" is the monetized environmental impact of the firm's operations during the specific year indicated in column 1 divided by operating income in that year
+* Column 7 "Total Environmental Cost" is the total monetized environmental impact of the firm's operations during the specific year indicated in Column 1.
+* Columns 8-15 are defined as eight different "safeguard subjects." Each safeguard subject is made up of multiple impact categories and indicators, called state indicators, that measure the current state of each safeguard subject 
+   + Columns 8  Working Capacity captures human health effects from               climate change, air pollution, and toxicity. 
+   + Columns 9  Fish Production Capacity includes acidification,                 eutrophication, climate change, and toxicity. 
+   + Columns 10 Crop Production Capacity captures soil degradation,               air pollution, climate change, and land use. 
+   + Columns 11 Meat Production Capacity includes soil degradation,               climate change, land use, and toxicity. 
+   + Columns 12 Biodiversity captures land use and toxicity. 
+   + Columns 13 Abiotic Resources includes environmental impacts                 from mining. 
+   + Columns 14 Water production capacity captures climate change,               land use, and water pollution. 
+   + Columns 15 Wood Production Capacity includes climate change,                air pollution, and land use. 
 
-Columns 16-32 are seventeen SDG targets relevant to corporate environmental impact.
+* Columns 16-32 are seventeen SDG targets relevant to corporate environmental impact.
+  + Column 16	 SDG 1.5
+  + Column 17  SDG 2.1
+  + Column 18	 SDG 2.2
+  + Column 19	 SDG 2.3
+  + Column 20	 SDG 2.4
+  + Column 21	 SDG 3.3
+  + Column 22	 SDG 3.4
+  + Column 23	 SDG 3.9
+  + Column 24	 SDG 6
+  + Column 25	 SDG 12.2
+  + Column 26	 SDG 14.1
+  + Column 27  SDG 14.2
+  + Column 28  SDG 14.3
+  + Column 29  SDG 14.c
+  + Column 30  SDG 15.1
+  + Column 31  SDG 15.2
+  + Column 32  SDG 15.5
+* Column 33 "% Imputed" refers to the percentage of a firm-year's total environmental impact that is derived from our imputation methodology using the Exiobase's industry-level data.
 
-    Column 16	 SDG 1.5
-    Column 17  SDG 2.1
-    Column 18	 SDG 2.2
-    Column 19	 SDG 2.3
-    Column 20	 SDG 2.4
-    Column 21	 SDG 3.3
-    Column 22	 SDG 3.4
-    Column 23	 SDG 3.9
-    Column 24	 SDG 6
-    Column 25	 SDG 12.2
-    Column 26	 SDG 14.1
-    Column 27  SDG 14.2
-    Column 28  SDG 14.3
-    Column 29  SDG 14.c
-    Column 30  SDG 15.1
-    Column 31  SDG 15.2
-    Column 32  SDG 15.5
-Column 33 "% Imputed" refers to the percentage of a firm-year's total environmental impact that is derived from our imputation methodology using the Exiobase's industry-level data.
-
-SixCountries.csv-
-Column 1 "Year" is the year in which the environmental impact was incurred by the firm's operations.
-Column 2 "Company Name" is the name of the issuer.
-Column 3 "Country" is the country in which the companies' headquarters are located.
-Column 4 "Index" is the monetized environmental impact of the firm's operations during the specific year indicated in column 1 divided by revenue in that year>
+**SixCountries.csv**
+* Column 1 "Year" is the year in which the environmental impact was incurred by the firm's operations.
+* Column 2 "Company Name" is the name of the issuer.
+* Column 3 "Country" is the country in which the companies' headquarters are located.
+* Column 4 "Index" is the monetized environmental impact of the firm's operations during the specific year indicated in column 1 divided by revenue in that year>
 
 Scripts and code
 <Anova.R contains code for running anova analysis
 Dataexploration.R contains the process and result for processed data exploration
 Datawrangling.R is used to clean and prepare the raw for analysis>
 
-Quality assurance/quality control
-<describe any relevant QA/QC procedures taken with your data. Some ideas can be found here:> https://www.dataone.org/best-practices/develop-quality-assurance-and-quality-control-plan https://www.dataone.org/best-practices/ensure-basic-quality-control https://www.dataone.org/best-practices/communicate-data-quality https://www.dataone.org/best-practices/identify-outliers https://www.dataone.org/best-practices/identify-values-are-estimated
