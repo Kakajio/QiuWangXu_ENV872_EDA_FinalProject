@@ -197,19 +197,19 @@ We finally focused on industries and extracted the industries with the largest s
 
 Overall, we believe it’s meaningful to compare and monitor the environmental intensity of different countries, since then we can see which country's corporations took the leading position in their way of industrial transition.
 
-Country  | Top Industry
-------------- | -------------
-Japan  | Production of electricity by hydro
-------------- | -------------
+Country        | Top Industry
+---------------|--------------
+Japan          | Production of electricity by hydro
+---------------|--------------
 United Kingdom | Production of electricity by hydro
-------------- | -------------
-South Africa  | Mining, Petroleum Refinery
-------------- | -------------
-Australia  | Mining of coal and lignite
-------------- | -------------
-United States | Mining
-------------- | -------------
-Mexico  | Quarrying of sand and clay
+---------------|--------------
+South Africa   | Mining, Petroleum Refinery
+---------------|--------------
+Australia      | Mining of coal and lignite
+---------------|--------------
+United States  | Mining
+---------------|--------------
+Mexico         | Quarrying of sand and clay
 
 
 \newpage
