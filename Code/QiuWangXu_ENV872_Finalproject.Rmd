@@ -42,9 +42,9 @@ raw=read_xlsx("../Data/Raw/Raw_Data.xlsx")%>%
 
 
 # Rationale and Research Questions
-As ESG performance became more and more important for investors to measure a corporation's competitiveness, evaluating environmental impacts of companies becomes an essential topic. Therefore, Harvard Business School developed a methodology to monetize corporations' environmental impacts. With the monetized impacts, we can measure the overall environmental impacts of the corporations in a country. 
+As ESG performance became more and more important for investors to measure a corporation's competitiveness, evaluating the environmental impacts of companies becomes an essential topic. Therefore, Harvard Business School developed a methodology to monetize corporations' environmental impacts. With the monetized impacts, we can measure the overall environmental impacts of the corporations in a country. 
 
-Due to the different stages countries are in their industrial transition path, different countries' corporations have different environmental intensity. Therefore, by comparing the environmental intensity of the representative countries in six continents, we can see which country's corporations took the leading position in their way of industrial transition. Since each country is the representative of its continent, we can have an overview of the industrial transition status of the world. The environmental intensity disparities of countries is also a reminder for the laggards to perform better in the future. 
+Due to the different stages countries are in their industrial transition path, different countries' corporations have different environmental intensities. Therefore, by comparing the environmental intensity of the representative countries on six continents, we can see which country's corporations took the leading position in their way of industrial transition. Since each country is representative of its continent, we can have an overview of the industrial transition status of the world. The environmental intensity disparities of countries are also a reminder for the laggards to perform better in the future. 
 
 Key Questions: Is there any countries better off than others 2019? Which countries are better-off than others in 2019? 
 
@@ -53,9 +53,9 @@ Key Questions: Is there any countries better off than others 2019? Which countri
 # Dataset Information
 **1. Dataset Information**
 
-The dataset we choose is from Harvard Business School’s study of corporate environmental impact. They develop a methodology to estimate monetized environmental impact by “applying characterization pathways and monetization factors to organization level environmental outputs, including carbon emissions, water use, and other emission types” . Their monetization factors are from “the Environmental Priority Strategies (EPS) Database, Available WAter REmaining (AWARE) Model, and Waterfund, along with organization level data of environmental outputs, such as carbon emissions, nitrous oxide, sulfur oxide, VOC, PM 2.5, and water withdrawal and discharge, sourced from Bloomberg and Thomson Reuters” .  
+The dataset we choose is from Harvard Business School’s study of corporate environmental impact. They develop a methodology to estimate monetized environmental impact by “applying characterization pathways and monetization factors to organization level environmental outputs, including carbon emissions, water use, and other emission types”. Their monetization factors are from “the Environmental Priority Strategies (EPS) Database, Available WAter REmaining (AWARE) Model, and Waterfund, along with organization-level data of environmental outputs, such as carbon emissions, nitrous oxide, sulfur oxide, VOC, PM 2.5, and water withdrawal and discharge, sourced from Bloomberg and Thomson Reuters”.  
 
-The monetized dataset includes Year, Company Name, Country, Industry, Environmental Intensity (Sales), Environmental Intensity (Op Inc), Total Environmental Cost, Capacity for each means of production, and the monetized impact on each selected SDG goal. A total of 14516 rows are in the dataset. The factor-environmental intensity (Sales) is the scaled calculations for total organizational environmental impact by sales as a proxy for organization size. The monetized damage to the environment is minus, whereas the monetized benefits to the environment is plus. The most recent year of data is 2019. 
+The monetized dataset includes Year, Company Name, Country, Industry, Environmental Intensity (Sales), Environmental Intensity (Op Inc), Total Environmental Cost, Capacity for each means of production, and the monetized impact on each selected SDG goal. A total of 14516 rows are in the dataset. The factor-environmental intensity (Sales) is the scaled calculations for total organizational environmental impact by sales as a proxy for organization size. The monetized damage to the environment is a minus, whereas the monetized benefits to the environment are a plus. The most recent year of data is 2019. 
 
 
 ```{r}
@@ -67,11 +67,11 @@ knitr::kable(summary(raw[1:5]),caption = "Raw Data Structure")
 # Exploratory Analysis 
 
 **2. Data Wrangling** 
-Our key research question is to compare the corporate environmental impacts of the six representative countries of six continents in 2019, because the data of 2019 is the most recent data we have. The six representative countries are chosen for the countries with the most environmental impacts data in their continents. Finally, the US, UK, Japan, Australia, Mexico, and South Africa, these six countries was selected. 
+Our key research question is to compare the corporate environmental impacts of the six representative countries of six continents in 2019 since the data of 2019 is the most recent data we have. The six representative countries are chosen for the countries with the most environmental impacts data in their continents. Finally, the US, UK, Japan, Australia, Mexico, and South Africa, these six countries were selected. 
 
 The main effect variable we want to discuss is “Environmental Intensity (Sales)”, so we deleted all the irrelevant variables, and only left “Year”, “Company”, “Country”, and “Environmental Intensity (Sales)”-these four columns.
 
-To make the graph easier to read, we multiplied “Environmental Intensity (Sales)” by “-1”, so that the larger the number is, the larger negative impacts the environment are suffered. 
+To make the graph easier to read, we multiplied “Environmental Intensity (Sales)” by “-1”, so that the larger the number is, the larger the negative impacts the environment are suffered. 
 ```{r}
 #select 6 countries that has most data in each continent
 Six.Countries=raw %>%
@@ -126,7 +126,11 @@ print(Annual.average.box)
 \newpage
 
 # Analysis
+We conducted two main parts of the analysis. The first part is a time-series analysis, where we looked at the trends in the environmental impact index for six countries from 2010 to 2019. From Figure 1 we can see that there is a clear distinction between the four countries in the upper part and the two countries in the lower part. The UK has a decreasing trend in the environmental impact index over the years, and Japan is also slowly decreasing since 2014, indicating that these two countries are performing better than others in the field of environmental governance.
 
+From the distribution analysis (Figure 2), we can find the distribution of the environmental impact index by industry in each country for each year. The data from the United States are more widely distributed, and the UK is mainly concentrated in low impact intensity, and this trend is evident year by year. South Africa is mainly concentrated in high impact intensity.
+
+In the second part, we performed a statistical analysis that compares the corporate environmental impacts of the six representative countries of six continents in 2019, because the data of 2019 is the most recent data we have. We did the Shapiro test, bartlett test, and drew the q-q plot. Unfortunately, these three all rejected the null(no) hypothesis, which indicated that the data do not reflect good normal distributivity because of the presence of some extreme values. We still did the Anova test, dividing the six countries into two main groups in line with the previous conclusion in Figure 1. 
 ```{r}
 SixCountries=read.csv("../Data/Processed/SixCountries.csv",stringsAsFactors = TRUE)
 # Test for normality
@@ -179,48 +183,33 @@ print(group.2019.plot)
 
 ## Question 1: <Is there any countries better off than others? >
 
-Answer: 
-
-
+Answer: Yes. The Anova test returns two distinct groups.
 
 ## Question 2: <Which countries are better-off than others?>
 
-
-Answer:
+Answer: United Kingdom and Japan.
 
 \newpage
 
 
-# Discussion: Differences in Industry
-```{r}
-Industry <- 
- raw %>%
-  select(c(1:5)) %>%
-    filter(Country=="Japan"|Country=="United Kingdom"|
-           Country=="United States"|Country=="South Africa"|
-           Country=="Australia")%>%
-    rename(Index=`Environmental Intensity (Sales)`)%>%
-  rename(Company=`Company Name`) %>%
-  rename(industry =`Industry (Exiobase)`)%>%
-  mutate(Country=as.factor(Country)) %>%
-  mutate(Company=as.factor(Company)) %>%
-  mutate(Index=Index*(-1))%>%
-  mutate(Year=as.factor(Year))
-
-
-Industry.sum <- 
-   Industry %>%
-  group_by(industry,Country)%>%
-summarise(meanindex = mean(Index))
-```
-
 # Summary and Conclusions
-```{r}
+We finally focused on industries and extracted the industries with the largest share of the overall environmental impact index for each country. From the table, we can see that the overall national environmental impact index is higher for countries that are still clustered in highly polluting and energy-intensive industries, such as mining, sand quarrying, and oil refining, and lower for those that have transitioned to cleaner industries.
 
+Overall, we believe it’s meaningful to compare and monitor the environmental intensity of different countries, since then we can see which country's corporations took the leading position in their way of industrial transition.
 
-
-```
-
+Country  | Top Industry
+------------- | -------------
+Japan  | Production of electricity by hydro
+------------- | -------------
+United Kingdom | Production of electricity by hydro
+------------- | -------------
+South Africa  | Mining, Petroleum Refinery
+------------- | -------------
+Australia  | Mining of coal and lignite
+------------- | -------------
+United States | Mining
+------------- | -------------
+Mexico  | Quarrying of sand and clay
 
 
 \newpage
