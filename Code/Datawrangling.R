@@ -22,4 +22,25 @@ Six.Countries=raw %>%
            Country=="Australia"|Country=="Mexico")
 
 write.csv(Six.Countries, row.names = FALSE,
-          file="./Data/Processed/SixCountries.csv")          
+          file="./Data/Processed/SixCountries.csv")    
+
+#data discussion part
+Industry <- 
+  raw %>%
+  select(c(1:5)) %>%
+  filter(Country=="Japan"|Country=="United Kingdom"|
+           Country=="United States"|Country=="South Africa"|
+           Country=="Australia")%>%
+  rename(Index=`Environmental Intensity (Sales)`)%>%
+  rename(Company=`Company Name`) %>%
+  rename(industry =`Industry (Exiobase)`)%>%
+  mutate(Country=as.factor(Country)) %>%
+  mutate(Company=as.factor(Company)) %>%
+  mutate(Index=Index*(-1))%>%
+  mutate(Year=as.factor(Year))
+
+
+Industry.sum <- 
+  Industry %>%
+  group_by(industry,Country)%>%
+  summarise(meanindex = mean(Index))
